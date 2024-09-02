@@ -9,13 +9,13 @@ function list_files(path, ignore_list)
 		-- add the slash to make path joining easier
 		if not top:find("/$") then
 			top = top .. "/"
-		end	
+		end
 
 		local files = ls(top)
 		for i = 1, #files, 1 do
 			local f = top .. files[i]
 			local f_type = fstat(f)
-			
+
 			-- check if file passes all ignore rules
 			local include = true
 			if #ignore_list > 0 then
@@ -41,6 +41,6 @@ function list_files(path, ignore_list)
 			end
 		end
 	end
-	
+
 	return file_list
 end
