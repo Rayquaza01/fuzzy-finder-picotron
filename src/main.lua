@@ -149,11 +149,11 @@ function _init()
 
 	-- only traverse filesystem if index is enabled
 	if list_mode == "FILESYSTEM" then
-		ignore_list = default_ignore_list
+		local ignore_list = default_ignore_list
 		if settings.ignore and fstat(ignore_file) == "file" then
-			local ignore_list = fetch(ignore_file)
-			--- @cast ignore_list string
-			ignore_list = split(ignore_list, "\n")
+			local ignore_list_raw = fetch(ignore_file)
+			--- @cast ignore_list_raw string
+			ignore_list = split(ignore_list_raw, "\n", false)
 		end
 
 		file_list = list_files(path, ignore_list)
