@@ -82,8 +82,8 @@ function _init()
 
 			if argv[i]:find("%-ignore") then
 				if argv[i]:find("=") then
-                    --- @type string[]
-					local l = split(argv[i], "=")
+					--- @type string[]
+					local l = split(argv[i], "=", false)
 
 					if fstat(l[2]) == "file" then
 						ignore_file = l[2]
@@ -95,9 +95,9 @@ function _init()
 
 			-- if argument is --list=file
 			if argv[i]:find("%-%-list%=") then
-                --- @type string[]
+				--- @type string[]
 				local l = split(argv[i], "=", false)
-                local list_path = l[2]
+				local list_path = l[2]
 				-- check if param is a file
 				-- if it is, set list mode to file mode
 				-- and open the file
@@ -105,9 +105,9 @@ function _init()
 				if fstat(list_path) == "file" then
 					list_mode = "FILE"
 					settings.clipboard = true
-                    local list = fetch(list_path)
+					local list = fetch(list_path)
 
-                    --- @cast list string
+					--- @cast list string
 					file_list = split(list, "\n")
 				end
 			end
@@ -120,7 +120,7 @@ function _init()
 
 	-- load monospace font into second font slot
 	-- use print("\014") to use this font
-    fetch("/system/fonts/lil_mono.font"):poke(0x5600)
+	fetch("/system/fonts/lil_mono.font"):poke(0x5600)
 
 	selected = 1
 
@@ -151,8 +151,8 @@ function _init()
 	if list_mode == "FILESYSTEM" then
 		ignore_list = default_ignore_list
 		if settings.ignore and fstat(ignore_file) == "file" then
-            local ignore_list = fetch(ignore_file)
-            --- @cast ignore_list string
+			local ignore_list = fetch(ignore_file)
+			--- @cast ignore_list string
 			ignore_list = split(ignore_list, "\n")
 		end
 
