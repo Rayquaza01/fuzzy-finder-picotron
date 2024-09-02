@@ -34,7 +34,11 @@ function _init()
 
 	settings = default_settings
 	if fstat(default_settings_file) == "file" then
-		settings = fetch(default_settings_file)
+		local loaded = fetch(default_settings_file)
+		--- @cast loaded table
+		for k, v in pairs(loaded) do
+			settings[k] = v
+		end
 	end
 
 	-- process commandline arguments
