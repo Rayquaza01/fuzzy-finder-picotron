@@ -5,6 +5,7 @@
 include("fzy.lua")
 include("pad.lua")
 include("list_files.lua")
+include("open_file.lua")
 
 include("default_settings.lua")
 
@@ -69,6 +70,10 @@ function _init()
 
 			if argv[i]:find("%-copy%-index") then
 				settings.copy_index = not argv[i]:find("%-no%-")
+			end
+
+			if argv[i]:find("%-follow%-loc") then
+				settings.follow_loc = not argv[i]:find("%-no%-")
 			end
 
 			if argv[i]:find("%-ignore") then
@@ -190,43 +195,9 @@ function _update()
 			-- the index for the file list
 			local selected_index = filter[selected][1]
 			local selected_path = file_list[selected_index]
-            --- @cast selected_path string
+			--- @cast selected_path string
 
-			-- will file be executed
-			local exe = false
-
-			-- shift key toggles clipboard
-			-- if clipboard is enabled, selecting an item will copy it to the clipboard
-			-- if disabled, selecting it will open it
-			-- shift inverts
-			if settings.clipboard != key("shift") then
-				if settings.copy_index then
-					set_clipboard(tostr(selected_index))
-				else
-					set_clipboard(selected_path)
-				end
-			else
-				-- similar to clipboard
-				-- if execute p64 is enabled, selecting it will run it
-				-- if disabled, selecting it will open it
-				-- ctrl inverts
-				if selected_path:find("%.p64$") or selected_path:find("%.p64%.png$") then
-					exe = settings.execute_p64 != key("ctrl")
-				end
-
-				-- same as execute p64
-				if selected_path:find("%.lua$") then
-					exe = settings.execute_lua != key("ctrl")
-				end
-
-				if exe then
-					create_process(selected_path)
-				else
-					create_process("/system/util/open.lua", { argv = { selected_path } })
-				end
-			end
-
-			exit()
+			open_file(selected_path, selected_index, settings)
 		end
 	end
 

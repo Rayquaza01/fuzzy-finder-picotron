@@ -15,13 +15,12 @@ default_settings = {
 	-- show copy index instead of path
 	copy_index = false,
 	-- apply ignore rules
-	ignore = true
+	ignore = true,
+	-- follow location files
+	follow_loc = true,
 }
 
--- ignore .loc files, as they don't open correctly
-default_ignore_list = {
-	"%.loc$"
-}
+default_ignore_list = {}
 
 default_settings_file = "/appdata/fuzzy_finder/settings.pod"
 default_ignore_file = "/appdata/fuzzy_finder/ignore.txt"
