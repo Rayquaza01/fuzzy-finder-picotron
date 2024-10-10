@@ -36,17 +36,17 @@ Some options can also have additional arguments
 
 Fuzzy Finder can be used in a variety of different ways.
 
-## Keystroke Launcher
+### Keystroke Launcher
 
 The default configuration of fuzzy finder makes it work well as a keystroke launcher. You can find and open files and folders, as well as run cartridges.
 
-## Interactive Grep
+### Interactive Grep
 
 `fzf --list=[file] --index --clipboard --copy-index` will list the contents of a file and allow you to search through that file. The line numbers are shown, and selecting a line will copy its line number. You can jump to a line number within a file with `Ctrl+l` in Picotron's editor.
 
 A wrapper script for this is available in `util/igrep.lua`.
 
-## Path Jumping
+### Path Jumping
 
 `fzf --folders --no-files --clipboard` will list only directories. Selecting a folder will copy it's path to the clipboard. You can then paste the path to quickly `cd` into it.
 
