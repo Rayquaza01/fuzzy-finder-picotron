@@ -1,5 +1,5 @@
 --[[pod_format="raw",created="2024-03-15 13:58:36",modified="2024-08-21 19:30:16",revision=3142]]
--- fuzzy finder v1.0
+-- fuzzy finder v1.1
 -- by Arnaught
 
 include("fzy.lua")
