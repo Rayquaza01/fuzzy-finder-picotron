@@ -153,7 +153,13 @@ function _init()
 		if settings.ignore and fstat(ignore_file) == "file" then
 			local ignore_list_raw = fetch(ignore_file)
 			--- @cast ignore_list_raw string
-			ignore_list = split(ignore_list_raw, "\n", false)
+
+			-- filter out blank and commented rules
+			for rule in all(split(ignore_list_raw, "\n", false)) do
+				if rule != "" and rule[1] != "#" then
+					add(ignore_list, rule)
+				end
+			end
 		end
 
 		file_list = list_files(path, ignore_list)
